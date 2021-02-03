@@ -1,0 +1,49 @@
+$navbar-height: 100px;
+
+.navbar {
+  background: blue;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .navbar-left {
+    display: flex;
+    .menu-icon {
+      display: none;
+      @media (max-width: 960px) {
+        display: flex;
+      }
+    }
+    .nav-menu {
+      display: flex;
+      @media (max-width: 960px) {
+        flex-direction: column;
+        position: absolute;
+        top: $navbar-height;
+        align-items: center;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.navbar-brand {
+  .fas {
+    height: 100px;
+    color: #fff;
+  }
+}
+
+.menu-icon {
+  .fas {
+    color: #fff;
+    font-size: 2rem;
+  }
+}
