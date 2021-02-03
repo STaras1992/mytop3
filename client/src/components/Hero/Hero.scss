@@ -1,0 +1,25 @@
+$navbar-height: 120px;
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: -$navbar-height;
+  background: url('../../images/hero.jpg') center center/cover no-repeat;
+  width: 100%;
+  //   overflow: scroll;
+  height: 100vh;
+  .hero-content {
+    margin-top: $navbar-height;
+    padding: 50px 50px;
+    text-align: center;
+    h1 {
+      color: black;
+    }
+    .hero-content-brand-name {
+      font-size: 64px;
+      margin-top: 150px;
+    }
+  }
+}

@@ -1,17 +1,19 @@
 $navbar-height: 100px;
 
 .navbar {
-  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  //   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  background: transparent;
   height: $navbar-height;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  //   position: sticky;
+  position: sticky;
   top: 0;
   z-index: 99;
 
   .navbar-container {
+    position: relative; //
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +29,7 @@ $navbar-height: 100px;
         color: #fff;
         font-size: 2rem;
       }
-      @media (max-width: 960px) {
+      @media screen and (max-width: 960px) {
         display: block;
         margin-right: 20px;
         position: absolute;
@@ -73,7 +75,7 @@ $navbar-height: 100px;
   //     margin-left: 0.5rem;
   //     font-size: 1.8rem;
   //   }
-  @media (max-width: 960px) {
+  @media screen and (max-width: 960px) {
     // display: block;
     position: absolute;
 
@@ -108,13 +110,13 @@ $navbar-height: 100px;
         transition: all 0.4s ease-in-out;
         // text-decoration: underline;
         // transition: all 1.2s ease-in-out;
-        @media (max-width: 960px) {
+        @media screen and (max-width: 960px) {
           background-color: #fff;
           color: #242424;
           border-radius: 0;
         }
       }
-      @media (max-width: 960px) {
+      @media screen and (max-width: 960px) {
         text-align: center;
         padding: 2rem;
         width: 100%;
@@ -124,7 +126,7 @@ $navbar-height: 100px;
   }
   .nav-link-mobile {
     display: none;
-    @media (max-width: 960px) {
+    @media screen and (max-width: 960px) {
       display: block;
       text-align: center;
       margin: 2rem auto;
@@ -144,7 +146,7 @@ $navbar-height: 100px;
       }
     }
   }
-  @media (max-width: 960px) {
+  @media screen and (max-width: 960px) {
     display: flex;
     flex-direction: column;
     width: 100%;
