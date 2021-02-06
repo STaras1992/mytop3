@@ -1,17 +1,17 @@
-$navbar-height: 120px;
+@import '../../scss/_variables.scss';
 
 .hero-container {
+  width: 100%;
+  max-width: $maxWidth;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: -$navbar-height;
+  margin-top: -$navbarHeight;
   background: url('../../images/hero.jpg') center center/cover no-repeat;
-  width: 100%;
-  //   overflow: scroll;
-  height: 100vh;
   .hero-content {
-    margin-top: $navbar-height;
+    margin-top: $navbarHeight;
     padding: 50px 50px;
     text-align: center;
     h1 {

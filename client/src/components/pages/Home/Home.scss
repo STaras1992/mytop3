@@ -1,5 +1,55 @@
+@import '../../../scss/_variables.scss';
+
 .home-container {
+  background: linear-gradient(180deg, rgba(9, 44, 48, 1) 40%, rgba(251, 251, 251, 1) 100%, rgba(255, 255, 255, 1) 100%);
   width: 100%;
-  max-width: 1920px;
+  max-width: $maxWidth;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-button {
+  margin-top: $topMargin;
+}
+
+.home-main-section1 {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.home-main-section2 {
+  min-height: 400px;
+  margin-top: $topMargin;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.main-elements {
+  width: 100%;
+  max-width: $maxInnerWidth;
+  margin-top: $topMargin;
+  display: flex;
+  justify-content: space-around;
+  p {
+    padding: 15px 0;
+    text-align: center;
+  }
+  .main-element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+    img {
+      background: #fff;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+    }
+  }
 }
