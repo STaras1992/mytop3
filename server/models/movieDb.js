@@ -1,9 +1,10 @@
+const axios = require('axios');
 const helper = require('../utils/moviesDbHelper');
-
 const url = 'https://api.themoviedb.org/3';
 const nowPlayingUrl = `${url}/movie/now_playing`;
 const searchMovieUrl = `${url}/search/movie`;
 const searchTvShowUrl = `${url}/search/tv`;
+const searchMultiUrl = `${url}/search/multi`;
 const topratedUrl = `${url}/movie/top_rated`;
 const popularUrl = `${url}/movie/popular`;
 const movieUrl = `${url}/movie`;
@@ -12,7 +13,7 @@ const moviesUrl = `${url}/discover/movie`;
 const personUrl = `${url}/trending/person/week`;
 const posterUrl = 'https://image.tmdb.org/t/p/original/';
 
-exports.searchMovieByTitle = async (title) => {
+exports.searchMovieByTitle = async (title, numOfResults = 10) => {
   try {
     const response = await axios.get(searchMovieUrl, {
       params: {
@@ -24,7 +25,7 @@ exports.searchMovieByTitle = async (title) => {
     });
 
     if (!response || !response.data) return null;
-    const modifiedData = helper.parseMoviesData(response.data);
+    const modifiedData = helper.parseMoviesData(response.data, numOfResults);
     return modifiedData[0];
   } catch (error) {
     console.log('searchMovieByTitle:', error.message);
@@ -32,7 +33,7 @@ exports.searchMovieByTitle = async (title) => {
   }
 };
 
-exports.searchTvShowByTitle = async (title) => {
+exports.searchTvShowByTitle = async (title, numOfResults = 10) => {
   try {
     const response = await axios.get(searchTvShowUrl, {
       params: {
@@ -44,12 +45,56 @@ exports.searchTvShowByTitle = async (title) => {
     });
 
     if (!response || !response.data) return null;
-    const modifiedData = helper.parseMoviesData(response.data);
+    const modifiedData = helper.parseMoviesData(response.data, numOfResults);
     return modifiedData[0];
   } catch (error) {
     console.log('searchTvShowByTitle:', error.message);
     return null;
   }
+};
+
+exports.searchResultByTitle = async (title, type, numOfResults = 10) => {
+  try {
+    let url = searchMultiUrl;
+    if (type === 'movie') url = searchMovieUrl;
+    else if (type === 'tv show') url = searchTvShowUrl;
+
+    const response = await axios.get(url, {
+      params: {
+        api_key: process.env.MOVIE_DB_API_KEY,
+        language: 'en_US',
+        page: 1,
+        query: title,
+      },
+    });
+
+    if (!response || !response.data) return null;
+    const modifiedData = helper.parseMoviesData(response.data, numOfResults);
+    return helper.checkMatch(modifiedData, title);
+  } catch (error) {
+    console.log('searchTvShowByTitle:', error.message);
+    return null;
+  }
+};
+
+exports.getSuggestions = async (text, type, numOfResults = 10) => {
+  let url = searchMultiUrl;
+  if (type === 'movie') url = searchMovieUrl;
+  else if (type === 'tv show') url = searchTvShowUrl;
+
+  const response = await axios.get(url, {
+    params: {
+      api_key: process.env.MOVIE_DB_API_KEY,
+      language: 'en_US',
+      page: 1,
+      query: text,
+    },
+  });
+
+  if (!response || !response.data) return [];
+  // const results = helper.parseMoviesData(response.data, numOfResults);
+  const suggestions = helper.parseSuggestions(response.data, numOfResults);
+  return suggestions;
 };
 
 /*Get list of movies currently playing on cinema */

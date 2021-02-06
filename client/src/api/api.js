@@ -1,13 +1,28 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api' : '/api',
+  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api' : 'http://localhost:3001/api',
 });
 
-export const findMovie = async (name) => {
-  return await axiosInstance.get('/search/movie', { name: name });
+export const getMovie = async (title) => {
+  console.log('api: ', title);
+  return await axiosInstance.get(`/search/movie/${title}`);
 };
 
-export const findTvShow = async (name) => {
-  return await axiosInstance.get('/search/movie/tv', { name: name });
+export const getTvShow = async (title) => {
+  return await axiosInstance.get(`/search/tv/${title}`);
+};
+
+export const getSearchResult = async (data) => {
+  return await axiosInstance.get(`/search/${data.title}/${data.genre}`);
+};
+
+export const getGenres = async () => {
+  return await axiosInstance.get('/search/genres');
+};
+
+export const getAutocompleteSuggestions = async (text, genre) => {
+  const response = await axiosInstance.get(`/search/autocomplete/${text}/${genre}`);
+  if (response.status === 200) return response.data.suggestions;
+  return [];
 };

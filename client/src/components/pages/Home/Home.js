@@ -7,7 +7,7 @@ import bestMoviesImage from '../../../images/best_movies.jpg';
 import recomendationsImage from '../../../images/recomendations2.jpg';
 import top3Image from '../../../images/top3.jpg';
 import HomeButton from '../../common/buttons/HomeButton.js';
-// import {}
+import { searchRequest } from '../../../redux/actions/searchActions.js';
 import './Home.scss';
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const handleSearch = (data) => {
-    dispatch(data);
+    dispatch(searchRequest(data));
   };
 
   return (

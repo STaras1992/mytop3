@@ -2,29 +2,49 @@ import React, { useState, useEffect } from 'react';
 import poster from '../../images/poster2.jpg';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { MOVIE, TV_SHOW } from '../../consts/genres.js';
+import MySelect from '../common/select/MySelect.js';
+import { MOVIE, TV_SHOW, ALL } from '../../consts/genres.js';
+import { getAutocompleteSuggestions } from '../../api/api.js';
 import './Search.scss';
 
 const options = [
   { value: MOVIE, label: 'Movie' },
   { value: TV_SHOW, label: 'TV Show' },
+  { value: ALL, label: 'All' },
 ];
 
 const Search = ({ onSearch }) => {
-  const [searchTitle, setSearchTitle] = useState({});
-  const [searchGenre, setSearchGenre] = useState({});
+  const [searchTitle, setSearchTitle] = useState('');
+  const [searchGenre, setSearchGenre] = useState(options[2]);
+  const [lastLetterPressedTime, setLastLetterPressedTime] = useState(Date.now()); //settimeout
+  const [suggestions, setSuggestions] = useState([]);
 
-  const handleTitleChange = (selectedOption) => {
-    setSearchTitle(selectedOption.value);
+  const handleTitleChange = (e) => {
+    setSearchTitle(e.target.value);
   };
 
   const handleGenreChange = (selectedOption) => {
-    setSearchTitle(selectedOption.value);
+    setSearchGenre(selectedOption);
   };
 
   const handleSearch = () => {
-    onSearch({ title: searchTitle, genre: searchGenre });
+    onSearch({ title: searchTitle, genre: searchGenre.value });
   };
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      try {
+        const result = await getAutocompleteSuggestions(searchTitle, searchGenre.value);
+        if (result && result.data.suggestions.length > 0) {
+          console.log(result.data.suggestions);
+          setSuggestions(result.data.suggestions);
+        } else setSuggestions([]);
+      } catch (err) {
+        setSuggestions([]);
+      }
+    };
+    fetchSuggestions();
+  }, [searchTitle]);
 
   return (
     <section className='search-container'>
@@ -40,8 +60,9 @@ const Search = ({ onSearch }) => {
             onChange={handleTitleChange}
           ></input>
         </div>
-        <div>
-          <Select value={searchGenre} options={options} onChange={handleGenreChange}></Select>
+        <div className='search-select'>
+          <MySelect value={searchGenre} name='search-genre' options={options} onChange={handleGenreChange} />
+          {/* <Select value={searchGenre} defaultValue={options[0]} options={options} onChange={handleGenreChange}></Select> */}
           {/* <select className='genre-select' name='genre' id='searchGenreSelect' type='text' placeholder='Genre'>
             <option value='movies'>Movies</option>
             <option value='series'>Series</option>
