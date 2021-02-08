@@ -6,7 +6,7 @@ import Footer from '../../Footer/Footer.js';
 import bestMoviesImage from '../../../images/best_movies.jpg';
 import recomendationsImage from '../../../images/recomendations2.jpg';
 import top3Image from '../../../images/top3.jpg';
-import HomeButton from '../../common/buttons/HomeButton.js';
+import MyButton from '../../common/buttons/MyButton.js';
 import { searchRequest } from '../../../redux/actions/searchActions.js';
 import './Home.scss';
 
@@ -22,7 +22,7 @@ const Home = () => {
     <section className='home-container'>
       <Hero />
       <Search onSearch={handleSearch} />
-      <section className='home-main-section1'>
+      <section className='home-main-top-section'>
         <h1>Don't know what to watch?</h1>
         <h1>Check what people like the most</h1>
         <div className='main-elements'>
@@ -40,17 +40,17 @@ const Home = () => {
           </div>
         </div>
         <div className='home-button'>
-          <HomeButton className='home-button' buttonStyle='secondary' buttonSize='lg'>
+          <MyButton className='home-button' buttonStyle='secondary' buttonSize='lg'>
             Show me
-          </HomeButton>
+          </MyButton>
         </div>
       </section>
-      <section className='home-main-section2'>
+      <section className='home-main-bottom-section'>
         <h1>Want to share your preferences? </h1>
         <div className='home-button'>
-          <HomeButton buttonStyle='secondary' buttonSize='lg'>
+          <MyButton buttonStyle='secondary' buttonSize='lg'>
             Lets try
-          </HomeButton>
+          </MyButton>
         </div>
       </section>
       <Footer />

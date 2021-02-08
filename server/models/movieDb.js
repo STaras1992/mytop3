@@ -10,6 +10,7 @@ const popularUrl = `${url}/movie/popular`;
 const movieUrl = `${url}/movie`;
 const genreUrl = `${url}/genre/movie/list`;
 const moviesUrl = `${url}/discover/movie`;
+const runtimeUrl = `${url}/search/movie`;
 const personUrl = `${url}/trending/person/week`;
 const posterUrl = 'https://image.tmdb.org/t/p/original/';
 
@@ -92,9 +93,23 @@ exports.getSuggestions = async (text, type, numOfResults = 10) => {
   });
 
   if (!response || !response.data) return [];
-  // const results = helper.parseMoviesData(response.data, numOfResults);
   const suggestions = helper.parseSuggestions(response.data, numOfResults);
   return suggestions;
+};
+
+exports.getRuntime = async (id) => {
+  try {
+    const result = await axios.get(runtimeUrl, {
+      params: {
+        api_key: process.env.MOVIE_DB_API_KEY,
+        movie_id: id,
+      },
+    });
+
+    return result.data.runtime;
+  } catch (err) {
+    return null;
+  }
 };
 
 /*Get list of movies currently playing on cinema */

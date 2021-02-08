@@ -24,28 +24,58 @@ exports.checkMatch = (data, searchTitle) => {
 
 /*list of top 10 titles match search request*/
 exports.parseSuggestions = (data, numOfSuggestions) => {
-  console.log(data['results']);
-  const topData = data['results'].slice(0, numOfSuggestions);
+  let topData = data['results'].slice(0, numOfSuggestions);
+  topData = topData.filter((data) => data['media_type'] !== 'person');
   let listOfSuggestions = topData.map((movie) => {
+    let label = undefined;
     if (movie['media_type'] === 'movie') {
       if (movie['title'] && movie['original_title']) {
-        if (movie['title'] === movie['original_title']) return movie['title'];
-        return `${movie['title']} - ${movie['original_title']}`;
-      } else if (movie['title']) return movie['title'];
-      else return movie['original_title'];
-    }
-    if (movie['media_type'] === 'tv') {
+        if (movie['title'] === movie['original_title'])
+          label = `${movie['title']} (${movie['release_date'] && movie['release_date'].split('-')[0]})`;
+        label = `${movie['title']} - ${movie['original_title']} (${
+          movie['release_date'] && movie['release_date'].split('-')[0]
+        })`;
+      } else if (movie['title'])
+        label = `${movie['title']} (${movie['release_date'] && movie['release_date'].split('-')[0]})`;
+      else label = `${movie['original_title']} (${movie['release_date'] && movie['release_date'].split('-')[0]})`;
+    } else if (movie['media_type'] === 'tv') {
       if (movie['name'] && movie['original_name']) {
-        if (movie['name'] === movie['original_name']) return movie['name'];
-        return `${movie['name']} - ${movie['original_name']}`;
-      } else if (movie['name']) return movie['name'];
-      else return movie['original_name'];
+        if (movie['name'] === movie['original_name'])
+          label = `${movie['name']} (${
+            movie['origin_country'] && movie['origin_country'].length > 0 && movie['origin_country'][0]
+          })`;
+        label = `${movie['name']} - ${movie['original_name']} (${
+          movie['origin_country'] && movie['origin_country'].length > 0 && movie['origin_country'][0]
+        })`;
+      } else if (movie['name'])
+        label = `${movie['name']} (${
+          movie['origin_country'] && movie['origin_country'].length > 0 && movie['origin_country'][0]
+        })`;
+      else
+        label = `${movie['origin_name']} (${
+          movie['origin_country'] && movie['origin_country'].length > 0 && movie['origin_country'][0]
+        })`;
     }
-    //else Person
+
+    return {
+      id: movie['id'],
+      type: movie['media_type'],
+      label: label,
+      title: movie['title'] || movie['name'],
+      originalTitle: movie['original_title'] || movie['original_name'],
+      overview: movie['overview'],
+      release: movie['release_date'] || movie['first_air_date'],
+      popularity: movie['popularity'],
+      poster: posterUrl + movie['poster_path'],
+      genre_ids: movie['genre_ids'],
+      backPoster: posterUrl + movie['backdrop_path'],
+      rating: movie['vote_average'],
+      votes: movie['vote_count'],
+    };
   });
 
-  listOfSuggestions = listOfSuggestions.filter((suggestion) => suggestion !== undefined);
-  return new Set(listOfSuggestions);
+  //listOfSuggestions = listOfSuggestions.filter((suggestion) => suggestion.label !== undefined);
+  return listOfSuggestions;
 };
 
 exports.parseGenresListData = (data) => {

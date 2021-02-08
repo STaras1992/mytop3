@@ -1,15 +1,15 @@
-import { SET_GENRES, SET_SEARCH_RESULT } from '../actionTypes.js';
+import { SET_SEARCH_RESULT } from '../actionTypes.js';
 import PropTypes from 'prop-types';
 
 const initState = {
-  genres: [],
+  // genres: [],
   searchResult: { result: null },
 };
 
 const searchReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_GENRES:
-      return { ...state, genres: [...action.payload] };
+    // case SET_GENRES:
+    //   return { ...state, genres: [...action.payload] };
     case SET_SEARCH_RESULT:
       return { ...state, searchResult: { ...action.payload } };
     default:

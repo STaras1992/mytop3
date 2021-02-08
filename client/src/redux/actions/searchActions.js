@@ -14,11 +14,11 @@ export const searchRequest = (data) => async (dispatch) => {
   }
 };
 
-export const getGenres = () => async (dispatch) => {
-  try {
-    const response = await api.getGenres();
-    if (response.status === 200) dispatch(setGenres(response.data.genres));
-  } catch (err) {
-    console.log(err.message);
-  }
-};
+// export const getGenres = () => async (dispatch) => {
+//   try {
+//     const response = await api.getGenres();
+//     if (response.status === 200) dispatch(setGenres(response.data.genres));
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// };

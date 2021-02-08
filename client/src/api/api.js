@@ -5,7 +5,6 @@ const axiosInstance = axios.create({
 });
 
 export const getMovie = async (title) => {
-  console.log('api: ', title);
   return await axiosInstance.get(`/search/movie/${title}`);
 };
 
@@ -22,7 +21,5 @@ export const getGenres = async () => {
 };
 
 export const getAutocompleteSuggestions = async (text, genre) => {
-  const response = await axiosInstance.get(`/search/autocomplete/${text}/${genre}`);
-  if (response.status === 200) return response.data.suggestions;
-  return [];
+  return await axiosInstance.get(`/search/autocomplete/${text}/${genre}`);
 };

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import poster from '../../images/poster2.jpg';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
+import MyButton from '../common/buttons/MyButton.js';
 import MySelect from '../common/select/MySelect.js';
+import AutocompleteSelect from '../common/select/AutocompleteSelect.js';
 import { MOVIE, TV_SHOW, ALL } from '../../consts/genres.js';
 import { getAutocompleteSuggestions } from '../../api/api.js';
 import './Search.scss';
@@ -13,76 +15,116 @@ const options = [
   { value: ALL, label: 'All' },
 ];
 
+const defaultSearchOption = { value: '-1', label: '' };
+
 const Search = ({ onSearch }) => {
   const [searchTitle, setSearchTitle] = useState('');
   const [searchGenre, setSearchGenre] = useState(options[2]);
-  const [lastLetterPressedTime, setLastLetterPressedTime] = useState(Date.now()); //settimeout
   const [suggestions, setSuggestions] = useState([]);
+  const [searchOptionSelected, setSearchOptionSelected] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const availableGenres = useSelector((state) => state.info.genres);
 
-  const handleTitleChange = (e) => {
-    setSearchTitle(e.target.value);
+  const [movieData, setMovieData] = useState({ poster: null, overview: '', genres: '', release: '', rating: '' });
+  // const [poster, setPoster] = useState(poster);
+  // const [description, setDescription] = useState('');
+  // const [genres, setGenres] = useState('');
+  // const [relea];
+
+  const handleTitleChange = (text) => {
+    setSearchTitle(text);
   };
 
   const handleGenreChange = (selectedOption) => {
     setSearchGenre(selectedOption);
   };
 
-  const handleSearch = () => {
-    onSearch({ title: searchTitle, genre: searchGenre.value });
+  const handleSearchOptionSelect = (option) => {
+    setSearchOptionSelected(option);
   };
 
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        const result = await getAutocompleteSuggestions(searchTitle, searchGenre.value);
-        if (result && result.data.suggestions.length > 0) {
-          console.log(result.data.suggestions);
-          setSuggestions(result.data.suggestions);
-        } else setSuggestions([]);
-      } catch (err) {
+  const handleSearch = () => {
+    //onSearch({ title: searchTitle, genre: searchGenre.value });
+    const selectedOption = suggestions.find((suggestion) => suggestion.id === searchOptionSelected.value);
+    console.log('option', selectedOption);
+    const genres = selectedOption.genre_ids
+      .map((id) => {
+        return availableGenres.find((genre) => id === genre.id);
+      })
+      .join(', ');
+
+    console.log('genres:', genres);
+    const rating = `${selectedOption.rating} (${selectedOption.votes})`;
+
+    setMovieData({
+      poster: selectedOption.poster,
+      overview: selectedOption.overview,
+      release: selectedOption.release,
+      genre: genres,
+      rating: rating,
+    });
+  };
+
+  const loadSuggestions = async (inputText, callback) => {
+    try {
+      setIsLoading(true);
+      if (!inputText || inputText === '') {
+        handleTitleChange(inputText);
         setSuggestions([]);
+        setIsLoading(false);
+        callback([defaultSearchOption]);
       }
-    };
-    fetchSuggestions();
-  }, [searchTitle]);
+      handleTitleChange(inputText);
+      const result = await getAutocompleteSuggestions(inputText, searchGenre.value);
+      if (result.data && result.data.suggestions) {
+        setSuggestions(result.data.suggestions);
+        setIsLoading(false);
+        callback(result.data.suggestions.map((suggestion) => ({ value: suggestion.id, label: suggestion.label })));
+      } else {
+        setIsLoading(false);
+        callback([defaultSearchOption]);
+      }
+    } catch (err) {}
+  };
 
   return (
     <section className='search-container'>
       <div className='search-panel'>
-        <div>
-          <input
-            className='search-input'
+        <div className='search-panel-title'>
+          <AutocompleteSelect
+            inputValue={searchTitle}
+            value={searchOptionSelected}
             name='title'
-            value={searchTitle}
-            id='searchInput'
-            type='text'
-            placeholder='Search'
-            onChange={handleTitleChange}
-          ></input>
+            getOptionLabel={(option) => option.label}
+            getOptionVaue={(option) => option.value}
+            isLoading={isLoading}
+            loadOptions={loadSuggestions}
+            onChange={handleSearchOptionSelect}
+            onInputChange={handleTitleChange}
+            placeholder='Search...'
+            hideSelectedOptions={false}
+            loadingMessage={() => 'Searching...'}
+            noOptionsMessage={() => 'No results'}
+          />
         </div>
-        <div className='search-select'>
+        <div className='search-panel-genre'>
           <MySelect value={searchGenre} name='search-genre' options={options} onChange={handleGenreChange} />
-          {/* <Select value={searchGenre} defaultValue={options[0]} options={options} onChange={handleGenreChange}></Select> */}
-          {/* <select className='genre-select' name='genre' id='searchGenreSelect' type='text' placeholder='Genre'>
-            <option value='movies'>Movies</option>
-            <option value='series'>Series</option>
-          </select> */}
         </div>
-        <button className='search-button' onClick={handleSearch}>
+        <MyButton buttonStyle='primary' buttonSize='sm' onClick={handleSearch}>
           Search
-        </button>
+        </MyButton>
       </div>
       <div className='info-container'>
         <div className='info-poster'>
-          <img src={poster} alt='poster'></img>
+          <img src={movieData.poster} alt='poster'></img>
         </div>
         <div className='info-details-container'>
-          <p className='details-description'>Film about ...</p>
+          <p className='details-overview'>{movieData.overview}</p>
           <div className='details-other'>
-            <p className='details-other-genre'>Genre:</p>
-            <p className='details-other-release'>Release date:</p>
-            <p className='details-other-time'>Run time:</p>
-            <p className='details-other-rating'>Rating:</p>
+            <p className='details-other-genre'>Genre: {movieData.genre}</p>
+            <p className='details-other-release'>Release date: {movieData.release}</p>
+            {/* <p className='details-other-time'>{movieData.time}</p> */}
+            <p className='details-other-rating'>Rating: {movieData.rating}</p>
           </div>
         </div>
       </div>

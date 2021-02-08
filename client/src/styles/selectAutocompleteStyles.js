@@ -24,9 +24,11 @@ const selectStyles = {
   }),
   dropdownIndicator: (base) => ({
     ...base,
+    display: 'none',
   }),
   indicatorSeparator: (base) => ({
     ...base,
+    display: 'none',
   }),
   valueContainer: (base) => ({
     ...base,

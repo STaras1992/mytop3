@@ -1,9 +1,9 @@
-import Select from 'react-select';
+import Select from 'react-select/async';
 import PropTypes from 'prop-types';
-import selectStyle from '../../../styles/selectStyles.js';
+import selectStyle from '../../../styles/selectAutocompleteStyles.js';
 import labelStyle from '../../../styles/labelStyles.js';
 
-const MySelect = ({ value, label = null, name, options, onChange }) => {
+const AutocompleteSelect = ({ value, label = null, name, loadOptions, onChange, ...props }) => {
   return (
     <>
       {label && (
@@ -13,31 +13,25 @@ const MySelect = ({ value, label = null, name, options, onChange }) => {
       )}
       <Select
         name={name}
-        isClearable={false}
-        defaultValue={options[0].value}
         styles={selectStyle}
         value={value}
-        options={options}
+        loadOptions={loadOptions}
         onChange={onChange}
+        {...props}
       ></Select>
     </>
   );
 };
 
-MySelect.propTypes = {
+AutocompleteSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   name: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })
-  ),
+  loadOptions: PropTypes.func,
   value: PropTypes.shape({
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     label: PropTypes.string,
   }),
 };
 
-export default MySelect;
+export default AutocompleteSelect;
