@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const searchRouter = require('./routes/searchRouter');
+const infoRouter = require('./routes/infoRouter');
+const fs = require('fs');
 
 const app = express();
 app.use(bodyParser.json({ limit: '5mb' }));
@@ -26,5 +28,6 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use('/api/search', searchRouter);
+app.use('/api/info', infoRouter);
 
 module.exports = app;

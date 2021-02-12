@@ -2,12 +2,15 @@
 
 .search-container {
   width: 100%;
-  height: 800px;
+  height: 1000px;
   max-width: $maxInnerWidth;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 960px) {
+    height: 1200px;
+  }
 }
 
 .info-container {
@@ -24,8 +27,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     img {
-      max-height: 500px;
+      max-height: 600px;
+      border: 4px solid $silver;
+      border-radius: 2px;
+      transition: all 0.35s ease-in-out;
+      &:hover {
+        @media screen and (min-width: 960px) {
+          z-index: 2;
+          border-width: 6px;
+          transform: scale(1.4);
+        }
+      }
     }
     @media screen and (max-width: 960px) {
       width: 100%;
@@ -36,16 +50,37 @@
 .info-details-container {
   width: 100%;
   height: 100%;
+  padding: 0 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   @media screen and (max-width: 960px) {
     justify-content: flex-start;
-    align-items: center;
   }
+
+  .info-trailer {
+    margin-top: 50px;
+  }
+}
+
+.info-details {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .details-title {
+    width: 100%;
+    color: red;
+    text-align: center;
+  }
+
   .details-overview {
     color: #fff;
+    padding-top: 1rem;
   }
 
   .details-other {
@@ -53,13 +88,19 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
+    padding-top: 50px;
     p {
       color: #fff;
     }
     @media screen and (max-width: 960px) {
-      margin-top: 50px;
+      // margin-top: 50px;
     }
   }
+}
+
+.row-title {
+  font-weight: 600;
+  color: $silver;
 }
 
 .search-panel {

@@ -2,17 +2,19 @@ const posterUrl = 'https://image.tmdb.org/t/p/original/';
 
 exports.parseMoviesData = (data, numOfElements = 10) => {
   const topData = data['results'].slice(0, numOfElements);
-  // const modifiedData = data['results'].map((movie) => ({
+
   const modifiedData = topData.map((movie) => ({
     id: movie['id'],
     title: movie['title'] || movie['name'],
     originalTitle: movie['original_title'] || movie['original_name'],
     overview: movie['overview'],
-    release: movie['release_date'],
+    release: movie['release_date'] || movie['first_air_date'],
     popularity: movie['popularity'],
     poster: posterUrl + movie['poster_path'],
+    genre_ids: movie['genre_ids'],
     backPoster: posterUrl + movie['backdrop_path'],
     rating: movie['vote_average'],
+    votes: movie['vote_count'],
   }));
 
   return modifiedData;
@@ -79,7 +81,7 @@ exports.parseSuggestions = (data, numOfSuggestions) => {
 };
 
 exports.parseGenresListData = (data) => {
-  const modifiedData = data['genres'].map((g) => ({
+  const modifiedData = data.map((g) => ({
     id: g['id'],
     name: g['name'],
   }));

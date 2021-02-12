@@ -25,10 +25,10 @@ function Footer() {
               </button>
             </div>
           </div>
-          <div className='footer-right'>
+          {/* <div className='footer-right'>
             <p>"I don't try to guess what a million people will like. It's hard enough to know what I like."</p>
             <cite>-John Huston</cite>
-          </div>
+          </div> */}
         </div>
         <div className='footer-copyright'>
           <p>Copyright@2021 MyTop3, Stas Tarasenko</p>

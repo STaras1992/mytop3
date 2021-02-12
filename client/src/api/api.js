@@ -17,7 +17,11 @@ export const getSearchResult = async (data) => {
 };
 
 export const getGenres = async () => {
-  return await axiosInstance.get('/search/genres');
+  return await axiosInstance.get('/info/genres');
+};
+
+export const getPopularMovies = async () => {
+  return await axiosInstance.get('/info/popular');
 };
 
 export const getAutocompleteSuggestions = async (text, genre) => {

@@ -1,2 +1,3 @@
 export const SET_GENRES = 'SET_GENRES';
 export const SET_SEARCH_RESULT = 'SET_SEARCH_RESULT';
+export const SET_POPULAR_MOVIES = 'SET_POPULAR_MOVIES';

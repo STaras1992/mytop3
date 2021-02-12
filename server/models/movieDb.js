@@ -8,7 +8,8 @@ const searchMultiUrl = `${url}/search/multi`;
 const topratedUrl = `${url}/movie/top_rated`;
 const popularUrl = `${url}/movie/popular`;
 const movieUrl = `${url}/movie`;
-const genreUrl = `${url}/genre/movie/list`;
+const genreMovieUrl = `${url}/genre/movie/list`;
+const genreTvUrl = `${url}/genre/tv/list`;
 const moviesUrl = `${url}/discover/movie`;
 const runtimeUrl = `${url}/search/movie`;
 const personUrl = `${url}/trending/person/week`;
@@ -134,7 +135,14 @@ exports.getNowPlayingMovies = async () => {
 /*Get list of available genres {id:number,name:string}*/
 exports.getListOfGenres = async () => {
   try {
-    const result = await axios.get(genreUrl, {
+    const resultMovie = await axios.get(genreMovieUrl, {
+      params: {
+        api_key: process.env.MOVIE_DB_API_KEY,
+        language: 'en_US',
+        page: 1,
+      },
+    });
+    const resultTv = await axios.get(genreTvUrl, {
       params: {
         api_key: process.env.MOVIE_DB_API_KEY,
         language: 'en_US',
@@ -142,8 +150,10 @@ exports.getListOfGenres = async () => {
       },
     });
 
-    if (!result || !result.data) return null;
-    return helper.parseGenresListData(result.data);
+    if (!resultMovie || !resultTv || !resultMovie.data || !resultTv.data) return null;
+    const allGenres = resultMovie.data.genres.concat(resultTv.data.genres);
+    console.log(allGenres);
+    return helper.parseGenresListData(allGenres);
   } catch (error) {
     console.log('getListOfGenres:', error.message);
     return null;
@@ -190,7 +200,7 @@ exports.getTopRatedMovies = async () => {
 };
 
 /*Get most popular movies of today*/
-exports.getPopularMovies = async () => {
+exports.getMostPopularMovies = async (num = 10) => {
   try {
     const result = await axios.get(popularUrl, {
       params: {
@@ -201,7 +211,7 @@ exports.getPopularMovies = async () => {
     });
 
     if (!result || !result.data) return null;
-    return helper.parseMoviesData(result.data);
+    return helper.parseMoviesData(result.data, num);
   } catch (error) {
     console.log('getPopularMovies:', error.message);
     return null;

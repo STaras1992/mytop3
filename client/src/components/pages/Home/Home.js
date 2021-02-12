@@ -46,12 +46,17 @@ const Home = () => {
         </div>
       </section>
       <section className='home-main-bottom-section'>
+        {/* <div className='home-main-guru' style></div> */}
         <h1>Want to share your preferences? </h1>
         <div className='home-button'>
           <MyButton buttonStyle='secondary' buttonSize='lg'>
             Lets try
           </MyButton>
         </div>
+      </section>
+      <section className='home-main-quote'>
+        <p>"I don't try to guess what a million people will like. It's hard enough to know what I like."</p>
+        <cite>-John Huston</cite>
       </section>
       <Footer />
     </section>
