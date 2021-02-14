@@ -1,4 +1,5 @@
 @import '../../scss/_variables.scss';
+@import '../../scss/_mixins.scss';
 
 .hero-container {
   width: 100%;
@@ -9,17 +10,57 @@
   justify-content: flex-start;
   align-items: center;
   margin-top: -$navbarHeight;
-  background: url('../../images/hero.jpg') center center/cover no-repeat;
+  // background: url('../../images/hero.jpg') center center/cover no-repeat;
+  background-image: url('../../images/hero.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
   .hero-content {
     margin-top: $navbarHeight;
-    padding: 50px 50px;
+    // @include adaptive-h-padding(0, 400);
     text-align: center;
-    h1 {
-      color: black;
+    padding-top: 10px;
+    p {
+      font-family: 'Notable', sans-serif;
+      font-size: 18px;
+      // @include adaptive-h-fontSize(32, 80);
+      color: $blackLight;
     }
-    .hero-content-brand-name {
-      font-size: 64px;
-      margin-top: 150px;
+    .hero-content-brand {
+      font-family: 'Black Ops One', cursive;
+      margin-top: 10px;
+    }
+    @media screen and (min-width: 600px) {
+      p {
+        font-size: 24px;
+      }
+    }
+    @media screen and (min-width: 960px) {
+      padding-top: 20px;
+      p {
+        font-size: 28px;
+      }
+      .hero-content-brand {
+        margin-top: 40px;
+      }
+    }
+    @media screen and (min-width: 1280px) {
+      padding-top: 30px;
+      p {
+        font-size: 32px;
+      }
+      .hero-content-brand {
+        margin-top: 40px;
+      }
+    }
+    @media screen and (min-width: 1920px) {
+      padding-top: 5vw;
+      p {
+        font-size: 36px;
+      }
+      .hero-content-brand {
+        margin-top: 50px;
+      }
     }
   }
 }

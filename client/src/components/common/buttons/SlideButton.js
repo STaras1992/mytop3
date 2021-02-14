@@ -1,9 +1,9 @@
 import React from 'react';
-import './WatchButton.scss';
-const WatchButton = () => {
+import './SlideButton.scss';
+const SlideButton = () => {
   return (
     <div id='container'>
-      <button className='watch-trailer'>
+      <button className='slide-btn'>
         <span className='circle' aria-hidden='true'>
           <span className='icon arrow'></span>
         </span>
@@ -13,4 +13,4 @@ const WatchButton = () => {
   );
 };
 
-export default WatchButton;
+export default SlideButton;

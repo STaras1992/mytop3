@@ -27,3 +27,7 @@ export const getPopularMovies = async () => {
 export const getAutocompleteSuggestions = async (text, genre) => {
   return await axiosInstance.get(`/search/autocomplete/${text}/${genre}`);
 };
+
+export const getTrailer = async (id, type) => {
+  return await axiosInstance.get(`/search/video/${id}/${type}`);
+};

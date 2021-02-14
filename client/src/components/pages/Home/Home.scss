@@ -14,6 +14,16 @@
   margin-top: $topMargin;
 }
 
+.section-wrapper {
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 800px;
+  width: 100%;
+  max-width: $maxWidth;
+}
+
 .home-main-top-section {
   min-height: 800px;
   width: 100%;
@@ -29,9 +39,8 @@
 }
 
 .home-main-bottom-section {
-  min-height: 600px;
   width: 100%;
-  max-width: $maxInnerWidth;
+  max-width: $maxWidth;
   margin-top: $topMargin;
   display: flex;
   flex-direction: column;
@@ -42,8 +51,38 @@
   }
 }
 
+.home-main-guru {
+  position: relative;
+  background-image: url(/images/guru.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 900px;
+  .guru-description {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: 100px;
+    margin-bottom: 100px;
+    p {
+      padding-bottom: 30px;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: $redLight;
+    }
+  }
+  .guru-button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: 100px;
+    margin-bottom: 30px;
+  }
+}
+
 .main-elements {
   width: 100%;
+
   max-width: $maxInnerWidth;
   margin-top: 150px;
   display: flex;
@@ -69,6 +108,7 @@
       width: 300px;
       height: 300px;
       border-radius: 50%;
+      box-shadow: 16px 28px 15px -12px rgba(0, 0, 0, 0.7);
     }
   }
 }

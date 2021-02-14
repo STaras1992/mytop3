@@ -1,0 +1,19 @@
+@import './_variables.scss';
+
+$minVw: 280;
+$maxVw: 3840;
+
+// @mixin adaptive-h-fontSize($startSize, $maxSize) {
+//   $diffSize: $maxSize - $startSize;
+//   font-size: calc(#{$startSize + px} + #{$diffSize} * ((100vw - #{$minWidth + px}) / #{$maxWidth - $minWidth}));
+// }
+
+@mixin adaptive-h-fontSize($startSize, $maxSize) {
+  $diffSize: $maxSize - $startSize;
+  font-size: calc(#{$startSize + px} + #{$diffSize} * ((100vw - #{$minVw + px}) / #{$maxVw - $minVw}));
+}
+
+@mixin adaptive-h-padding($startSize, $maxSize) {
+  $diffSize: $maxSize - $startSize;
+  padding-top: calc(#{$startSize + px} + #{$diffSize} * ((100vw - #{$minVw + px}) / #{$maxVw - $minVw}));
+}

@@ -6,8 +6,8 @@ import MyButton from '../common/buttons/MyButton.js';
 import MySelect from '../common/select/MySelect.js';
 import AutocompleteSelect from '../common/select/AutocompleteSelect.js';
 import { MOVIE, TV_SHOW, ALL } from '../../consts/genres.js';
-import { getAutocompleteSuggestions } from '../../api/api.js';
-import WatchButton from '../common/buttons/WatchButton.js';
+import { getAutocompleteSuggestions, getTrailer } from '../../api/api.js';
+import SlideButton from '../common/buttons/SlideButton.js';
 import './Search.scss';
 
 const options = [
@@ -25,6 +25,7 @@ const Search = ({ onSearch }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [searchOptionSelected, setSearchOptionSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [trailer, setTrailer] = useState(null);
   const availableGenres = useSelector((state) => state.info.genres);
   const popularMovies = useSelector((state) => state.info.popularMovies);
   const [movieData, setMovieData] = useState({ poster: null, overview: '', genres: '', release: '', rating: '' });
@@ -53,10 +54,7 @@ const Search = ({ onSearch }) => {
     const title = `${selectedOption.title} / ${selectedOption.originalTitle}`;
     const genres = selectedOption.genre_ids
       .map((id) => {
-        console.log('available:', availableGenres);
-        console.log('id:', id);
         const genre = availableGenres.find((genre) => id === genre.id);
-        console.log(genre);
         return genre.name;
       })
       .join(', ');
@@ -98,6 +96,25 @@ const Search = ({ onSearch }) => {
   useEffect(() => {
     if (popularMovies.length > 0 && availableGenres.length > 0) acceptOption(popularMovies[0]);
   }, [popularMovies, availableGenres]);
+
+  useEffect(() => {
+    console.log('trailer effect');
+    if (!searchOptionSelected) return;
+    const fetchTrailer = async () => {
+      try {
+        const selectedOption = suggestions.find((suggestion) => suggestion.id === searchOptionSelected.value);
+        console.log(selectedOption);
+        const result = await getTrailer(selectedOption.id, selectedOption.type);
+        if (result) {
+          console.log(result);
+        }
+      } catch (err) {
+        console.log(err.message);
+        setTrailer(null);
+      }
+    };
+    fetchTrailer();
+  }, [searchOptionSelected]);
 
   return (
     <section className='search-container'>
@@ -148,7 +165,7 @@ const Search = ({ onSearch }) => {
             </div>
           </div>
           <div className='info-trailer'>
-            <WatchButton />
+            <SlideButton />
           </div>
         </div>
       </div>

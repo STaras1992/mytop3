@@ -87,3 +87,7 @@ exports.parseGenresListData = (data) => {
   }));
   return modifiedData;
 };
+
+exports.findTrailer = (videos) => {
+  return videos.find((video) => video.type === 'Trailer');
+};

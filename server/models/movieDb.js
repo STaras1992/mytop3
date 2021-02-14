@@ -8,6 +8,7 @@ const searchMultiUrl = `${url}/search/multi`;
 const topratedUrl = `${url}/movie/top_rated`;
 const popularUrl = `${url}/movie/popular`;
 const movieUrl = `${url}/movie`;
+const tvUrl = `${url}/tv`;
 const genreMovieUrl = `${url}/genre/movie/list`;
 const genreTvUrl = `${url}/genre/tv/list`;
 const moviesUrl = `${url}/discover/movie`;
@@ -80,22 +81,27 @@ exports.searchResultByTitle = async (title, type, numOfResults = 10) => {
 };
 
 exports.getSuggestions = async (text, type, numOfResults = 10) => {
-  let url = searchMultiUrl;
-  if (type === 'movie') url = searchMovieUrl;
-  else if (type === 'tv show') url = searchTvShowUrl;
+  try {
+    let url = searchMultiUrl;
+    if (type === 'movie') url = searchMovieUrl;
+    else if (type === 'tv show') url = searchTvShowUrl;
 
-  const response = await axios.get(url, {
-    params: {
-      api_key: process.env.MOVIE_DB_API_KEY,
-      language: 'en_US',
-      page: 1,
-      query: text,
-    },
-  });
+    const response = await axios.get(url, {
+      params: {
+        api_key: process.env.MOVIE_DB_API_KEY,
+        language: 'en_US',
+        page: 1,
+        query: text,
+      },
+    });
 
-  if (!response || !response.data) return [];
-  const suggestions = helper.parseSuggestions(response.data, numOfResults);
-  return suggestions;
+    if (!response || !response.data) return [];
+    const suggestions = helper.parseSuggestions(response.data, numOfResults);
+    return suggestions;
+  } catch (err) {
+    console.error('Get suggestions error', err.message);
+    return [];
+  }
 };
 
 exports.getRuntime = async (id) => {
@@ -152,7 +158,6 @@ exports.getListOfGenres = async () => {
 
     if (!resultMovie || !resultTv || !resultMovie.data || !resultTv.data) return null;
     const allGenres = resultMovie.data.genres.concat(resultTv.data.genres);
-    console.log(allGenres);
     return helper.parseGenresListData(allGenres);
   } catch (error) {
     console.log('getListOfGenres:', error.message);
@@ -237,18 +242,21 @@ exports.getMovieDetails = async (id) => {
 };
 
 /*Get movie trailer by movie id*/
-exports.getMovieVideos = async (id) => {
+exports.getMovieVideo = async (id, type) => {
   try {
-    const result = await axios.get(`${movieUrl}/${id}/videos`, {
+    console.log(type);
+    const url = type === 'movie' ? movieUrl : tvUrl;
+    console.log(url);
+    const result = await axios.get(`${type === 'movie' ? movieUrl : tvUrl}/${id}/videos`, {
       params: {
-        api_key: apiKey,
+        api_key: process.env.MOVIE_DB_API_KEY,
       },
     });
 
     if (!result || !result.data) return null;
-    return data['results'][0];
+    return helper.findTrailer;
   } catch (error) {
-    console.log('getMovieVideos:', error.message);
+    console.log('getMovieVideo:', error.message);
     return null;
   }
 };

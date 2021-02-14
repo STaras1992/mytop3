@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from '../../images/logo.svg';
+import logo from '../../images/logo2.svg';
+import { Link } from 'react-router-dom';
 import './Footer.scss';
 
 function Footer() {
@@ -11,18 +12,18 @@ function Footer() {
             <div className='footer-logo'>
               <img src={logo} alt='logo' />
             </div>
-            <p>About</p>
-            <p>Contact</p>
+            {/* <p>About</p> */}
+            <p>Contact us:</p>
             <div className='footer-social-container'>
-              <button>
+              <Link to='#'>
                 <i className='fab fa-linkedin'></i>
-              </button>
-              <button>
-                <i className='fab fa-linkedin'></i>
-              </button>
-              <button>
-                <i className='fab fa-linkedin'></i>
-              </button>
+              </Link>
+              <Link to='#'>
+                <i className='fab fa-github-square'></i>
+              </Link>
+              <Link to='#'>
+                <i className='fas fa-envelope-square'></i>
+              </Link>
             </div>
           </div>
           {/* <div className='footer-right'>

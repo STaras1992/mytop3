@@ -49,3 +49,14 @@ exports.getAutocompleteSuggestions = async (req, res, next) => {
     res.status(500).json({ status: 'fail', message: err.message });
   }
 };
+
+exports.getTrailer = async (req, res, next) => {
+  try {
+    const { id, type } = req.params;
+    const trailer = await movieDb.getMovieVideo(id, type);
+    if (!trailer) res.status(404).json({ status: 'fail', message: 'Trailer missing' });
+    res.status(200).json({ status: 'success', video: trailer });
+  } catch (err) {
+    res.status(500).json({ status: 'fail', message: err.message });
+  }
+};
