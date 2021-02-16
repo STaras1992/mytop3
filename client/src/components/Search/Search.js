@@ -8,6 +8,7 @@ import AutocompleteSelect from '../common/select/AutocompleteSelect.js';
 import { MOVIE, TV_SHOW, ALL } from '../../consts/genres.js';
 import { getAutocompleteSuggestions, getTrailer } from '../../api/api.js';
 import SlideButton from '../common/buttons/SlideButton.js';
+import Player from '../common/player/VideoPlayer.js';
 import './Search.scss';
 
 const options = [
@@ -26,6 +27,7 @@ const Search = ({ onSearch }) => {
   const [searchOptionSelected, setSearchOptionSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [trailer, setTrailer] = useState(null);
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const availableGenres = useSelector((state) => state.info.genres);
   const popularMovies = useSelector((state) => state.info.popularMovies);
   const [movieData, setMovieData] = useState({ poster: null, overview: '', genres: '', release: '', rating: '' });
@@ -40,6 +42,14 @@ const Search = ({ onSearch }) => {
 
   const handleSearchOptionSelect = (option) => {
     setSearchOptionSelected(option);
+  };
+
+  const handlePlayerClose = () => {
+    setIsPlayerOpen(false);
+  };
+
+  const handleShowTrailer = () => {
+    setIsPlayerOpen(true);
   };
 
   const handleSearch = () => {
@@ -105,9 +115,8 @@ const Search = ({ onSearch }) => {
         const selectedOption = suggestions.find((suggestion) => suggestion.id === searchOptionSelected.value);
         console.log(selectedOption);
         const result = await getTrailer(selectedOption.id, selectedOption.type);
-        if (result) {
-          console.log(result);
-        }
+        console.log(result.data);
+        setTrailer(result.data.video);
       } catch (err) {
         console.log(err.message);
         setTrailer(null);
@@ -165,10 +174,16 @@ const Search = ({ onSearch }) => {
             </div>
           </div>
           <div className='info-trailer'>
-            <SlideButton />
+            <SlideButton onClick={handleShowTrailer} />
           </div>
         </div>
       </div>
+      <Player
+        show={isPlayerOpen}
+        onHide={handlePlayerClose}
+        title={trailer && trailer.name}
+        videoKey={trailer && trailer.key}
+      ></Player>
     </section>
   );
 };

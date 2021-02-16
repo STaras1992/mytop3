@@ -1,9 +1,9 @@
 import React from 'react';
 import './SlideButton.scss';
-const SlideButton = () => {
+const SlideButton = ({ onClick, ...props }) => {
   return (
     <div id='container'>
-      <button className='slide-btn'>
+      <button onClick={onClick} {...props} className='slide-btn'>
         <span className='circle' aria-hidden='true'>
           <span className='icon arrow'></span>
         </span>

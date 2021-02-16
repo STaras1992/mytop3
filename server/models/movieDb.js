@@ -244,9 +244,7 @@ exports.getMovieDetails = async (id) => {
 /*Get movie trailer by movie id*/
 exports.getMovieVideo = async (id, type) => {
   try {
-    console.log(type);
     const url = type === 'movie' ? movieUrl : tvUrl;
-    console.log(url);
     const result = await axios.get(`${type === 'movie' ? movieUrl : tvUrl}/${id}/videos`, {
       params: {
         api_key: process.env.MOVIE_DB_API_KEY,
@@ -254,7 +252,7 @@ exports.getMovieVideo = async (id, type) => {
     });
 
     if (!result || !result.data) return null;
-    return helper.findTrailer;
+    return helper.findTrailer(result.data.results);
   } catch (error) {
     console.log('getMovieVideo:', error.message);
     return null;

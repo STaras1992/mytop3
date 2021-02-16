@@ -34,7 +34,7 @@ exports.getAll = async (req, res, next) => {
     const result = await movieDb.searchResultByTitle(title);
 
     if (!result) return res.status(404).json({ status: 'fail', message: `${title} not found` });
-    res.status(200).json({ status: 'success', result: tvShow });
+    res.status(200).json({ status: 'success', result: result });
   } catch (err) {
     res.status(500).json({ status: 'fail', message: err.message });
   }
@@ -54,7 +54,8 @@ exports.getTrailer = async (req, res, next) => {
   try {
     const { id, type } = req.params;
     const trailer = await movieDb.getMovieVideo(id, type);
-    if (!trailer) res.status(404).json({ status: 'fail', message: 'Trailer missing' });
+    if (!trailer) return res.status(404).json({ status: 'fail', message: 'Trailer missing' });
+    console.log(trailer);
     res.status(200).json({ status: 'success', video: trailer });
   } catch (err) {
     res.status(500).json({ status: 'fail', message: err.message });
