@@ -113,9 +113,7 @@ const Search = ({ onSearch }) => {
     const fetchTrailer = async () => {
       try {
         const selectedOption = suggestions.find((suggestion) => suggestion.id === searchOptionSelected.value);
-        console.log(selectedOption);
         const result = await getTrailer(selectedOption.id, selectedOption.type);
-        console.log(result.data);
         setTrailer(result.data.video);
       } catch (err) {
         console.log(err.message);
