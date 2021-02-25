@@ -2,8 +2,8 @@ import React from 'react';
 import './SlideButton.scss';
 const SlideButton = ({ onClick, ...props }) => {
   return (
-    <div id='container'>
-      <button onClick={onClick} {...props} className='slide-btn'>
+    <div id='slide-container'>
+      <button onClick={onClick} {...props} className={props.disabled ? 'btn-disabled' : 'slide-btn'}>
         <span className='circle' aria-hidden='true'>
           <span className='icon arrow'></span>
         </span>

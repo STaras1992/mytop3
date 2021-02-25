@@ -23,64 +23,65 @@ const Home = () => {
   };
 
   return (
-    <section className='home-container'>
-      <Hero />
-      <Search onSearch={handleSearch} />
-      <div className='section-wrapper'>
-        <section className='home-main-top-section'>
-          <h1>Don't know what to watch?</h1>
-          <h1>Check what people like the most</h1>
-          <div className='main-elements'>
-            <div className='main-element'>
-              <img className='element-icon-image' src={bestMoviesImage} alt='best movies' />
-              <p>Top rated movies/series by genre</p>
+    <section className='home'>
+      <div className='home-container'>
+        <Hero />
+        <Search onSearch={handleSearch} />
+        <div className='section-wrapper'>
+          <section className='home-main-top-section'>
+            <h1>Don't know what to watch?</h1>
+            <h1>Check what people like the most</h1>
+            <div className='main-elements'>
+              <div className='main-element'>
+                <img className='element-icon-image' src={bestMoviesImage} alt='best movies' />
+                <p>Top rated movies/series by genre</p>
+              </div>
+              <div className='main-element'>
+                <img className='element-icon-image' src={recomendationsImage} alt='recomendations' />
+                <p>Top recommendations by different categories and topics</p>
+              </div>
+              <div className='main-element'>
+                <img className='element-icon-image' src={top3Image} alt='top 3' />
+                <p>Review people top 3 lists and rate them if you like</p>
+              </div>
             </div>
-            <div className='main-element'>
-              <img className='element-icon-image' src={recomendationsImage} alt='recomendations' />
-              <p>Top recommendations by different categories and topics</p>
-            </div>
-            <div className='main-element'>
-              <img className='element-icon-image' src={top3Image} alt='top 3' />
-              <p>Review people top 3 lists and rate them if you like</p>
-            </div>
-          </div>
-          <div className='home-button'>
-            <div className='show-button'>
-              <LiqButton text='Show me' buttonStyle='style-4' />
-            </div>
-            {/* <MyButton className='home-button' buttonStyle='secondary' buttonSize='lg'>
+            <div className='home-button'>
+              <div className='show-button'>
+                <LiqButton text='Show me' buttonStyle='style-4' />
+              </div>
+              {/* <MyButton className='home-button' buttonStyle='secondary' buttonSize='lg'>
               Show me
             </MyButton> */}
-          </div>
-        </section>
-      </div>
-      <div className='section-wrapper'>
-        <section className='home-main-bottom-section'>
-          <div className='home-main-guru'>
-            <div className='guru-description'>
-              <p>Think you are movie guru?</p>
-              <p>Share your experience with others...</p>
             </div>
-            <div className='guru-button'>
-              <LiqButton text='Lets try' buttonStyle='style-5' />
+          </section>
+        </div>
+        <div className='section-wrapper'>
+          <section className='home-main-bottom-section'>
+            <div className='home-main-guru'>
+              <div className='guru-description'>
+                <p>Think you are movie guru?</p>
+                <p>Share your experience with others...</p>
+              </div>
+              <div className='guru-button'>
+                <LiqButton text='Lets try' buttonStyle='style-5' />
+              </div>
+              {/* <img src={guruImage} alt='guru?'></img> */}
             </div>
-            {/* <img src={guruImage} alt='guru?'></img> */}
-          </div>
-          {/* <h1>Want to share your preferences? </h1>
+            {/* <h1>Want to share your preferences? </h1>
           <div className='home-button'>
             <MyButton buttonStyle='secondary' buttonSize='lg'>
               Lets try
             </MyButton>
           </div> */}
-        </section>
+          </section>
+        </div>
+        <div className='section-wrapper'>
+          <section className='home-main-quote'>
+            <p>"I don't try to guess what a million people will like. It's hard enough to know what I like."</p>
+            <cite>-John Huston</cite>
+          </section>
+        </div>
       </div>
-      <div className='section-wrapper'>
-        <section className='home-main-quote'>
-          <p>"I don't try to guess what a million people will like. It's hard enough to know what I like."</p>
-          <cite>-John Huston</cite>
-        </section>
-      </div>
-      <Footer />
     </section>
   );
 };

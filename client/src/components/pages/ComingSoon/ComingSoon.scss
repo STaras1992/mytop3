@@ -1,0 +1,80 @@
+@import '../../../scss/_variables.scss';
+
+.comingSoon {
+  width: 100%;
+}
+
+.comingSoon-container {
+  background: $black;
+  width: 100%;
+  max-width: $maxWidth;
+  //   min-height: 100vh;
+  margin-top: -$navbarHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.comingSoon-container__content {
+  margin: 15vh 20%;
+  text-align: center;
+  margin-bottom: 0;
+  color: $white;
+  @media screen and (max-width: 1280px) {
+    margin: 10vh 10%;
+  }
+  @media screen and (max-width: 900px) {
+  }
+  @media screen and (max-width: 600px) {
+    margin: 20px;
+    margin-top: calc(#{$navbarHeight} + 50px);
+  }
+  @media screen and (max-width: 400px) {
+  }
+}
+
+.comingSoon__title {
+  padding: 5rem 0;
+  font-family: 'Courgette', cursive;
+  font-size: 84px;
+
+  @media screen and (max-width: 1280px) {
+    font-size: 72px;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 60px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 48px;
+  }
+  @media screen and (max-width: 400px) {
+    padding: 4rem 0;
+    font-size: 36px;
+  }
+}
+.comingSoon__text {
+  font-family: 'Courgette', cursive;
+  font-size: 60px;
+  @media screen and (max-width: 1280px) {
+    font-size: 52px;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 44px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 36px;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 28px;
+  }
+}
+
+.comingSoon__image {
+  width: 100%;
+  margin-top: 10vh;
+}
+
+.comingSoon__text_red {
+  color: $redLight;
+}

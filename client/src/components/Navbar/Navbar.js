@@ -43,28 +43,28 @@ function Navbar() {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link to='/' className='nav-link' onClick={closeMobileMenu}>
+              <Link to='/movies' className='nav-link' onClick={closeMobileMenu}>
                 Movies
               </Link>
             </li>
             <li className='nav-item'>
-              <Link to='/' className='nav-link' onClick={closeMobileMenu}>
+              <Link to='/tv' className='nav-link' onClick={closeMobileMenu}>
                 TV shows
               </Link>
             </li>
             <li className='nav-item'>
-              <Link to='/' className='nav-link' onClick={closeMobileMenu}>
+              <Link to='/about' className='nav-link' onClick={closeMobileMenu}>
                 About
               </Link>
             </li>
             <li>
-              <Link to='/' className='nav-link-mobile' onClick={closeMobileMenu}>
+              <Link to='/signup' className='nav-link-mobile' onClick={closeMobileMenu}>
                 Sign Up
               </Link>
             </li>
           </ul>
           {showSignIn && (
-            <Link to='/' className='navbar-log-button'>
+            <Link to={isLoggedIn ? '/logout' : '/login'} className='navbar-log-button'>
               {isLoggedIn ? 'LOGOUT' : 'LOGIN'}
             </Link>
           )}

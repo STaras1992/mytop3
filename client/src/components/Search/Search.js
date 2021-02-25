@@ -19,8 +19,7 @@ const options = [
 
 const defaultSearchOption = { value: '-1', label: '' };
 
-const Search = ({ onSearch }) => {
-  const dispatch = useDispatch();
+const Search = () => {
   const [searchTitle, setSearchTitle] = useState('');
   const [searchGenre, setSearchGenre] = useState(options[2]);
   const [suggestions, setSuggestions] = useState([]);
@@ -105,10 +104,18 @@ const Search = ({ onSearch }) => {
   /*Initialize default data with most popular movie*/
   useEffect(() => {
     if (popularMovies.length > 0 && availableGenres.length > 0) acceptOption(popularMovies[0]);
+    const fetchTrailer = async () => {
+      try {
+        const result = await getTrailer(popularMovies[0].id, 'movie');
+        setTrailer(result.data.video);
+      } catch (err) {
+        setTrailer(null);
+      }
+    };
+    fetchTrailer();
   }, [popularMovies, availableGenres]);
 
   useEffect(() => {
-    console.log('trailer effect');
     if (!searchOptionSelected) return;
     const fetchTrailer = async () => {
       try {
@@ -116,7 +123,6 @@ const Search = ({ onSearch }) => {
         const result = await getTrailer(selectedOption.id, selectedOption.type);
         setTrailer(result.data.video);
       } catch (err) {
-        console.log(err.message);
         setTrailer(null);
       }
     };
@@ -172,7 +178,7 @@ const Search = ({ onSearch }) => {
             </div>
           </div>
           <div className='info-trailer'>
-            <SlideButton onClick={handleShowTrailer} />
+            <SlideButton style={{ visibility: trailer ? 'visible' : 'hidden' }} onClick={handleShowTrailer} />
           </div>
         </div>
       </div>

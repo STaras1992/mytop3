@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from '../../images/logo2.svg';
-import { Link } from 'react-router-dom';
 import './Footer.scss';
 
 function Footer() {
@@ -12,24 +11,19 @@ function Footer() {
             <div className='footer-logo'>
               <img src={logo} alt='logo' />
             </div>
-            {/* <p>About</p> */}
             <p>Contact us:</p>
             <div className='footer-social-container'>
-              <Link to='#'>
+              <a href='https://www.linkedin.com/in/staras1992/' rel='noopener noreferrer' target='_blank'>
                 <i className='fab fa-linkedin'></i>
-              </Link>
-              <Link to='#'>
+              </a>
+              <a href='https://github.com/STaras1992' rel='noopener noreferrer' target='_blank'>
                 <i className='fab fa-github-square'></i>
-              </Link>
-              <Link to='#'>
+              </a>
+              <a href='mailto:starasp1992@gmail.com'>
                 <i className='fas fa-envelope-square'></i>
-              </Link>
+              </a>
             </div>
           </div>
-          {/* <div className='footer-right'>
-            <p>"I don't try to guess what a million people will like. It's hard enough to know what I like."</p>
-            <cite>-John Huston</cite>
-          </div> */}
         </div>
         <div className='footer-copyright'>
           <p>Copyright@2021 MyTop3, Stas Tarasenko</p>
