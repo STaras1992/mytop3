@@ -152,7 +152,7 @@ const Search = () => {
         <div className='search-panel-genre'>
           <MySelect value={searchGenre} name='search-genre' options={options} onChange={handleGenreChange} />
         </div>
-        <MyButton buttonStyle='primary' buttonSize='sm' onClick={handleSearch}>
+        <MyButton buttonStyle='secondary' buttonSize='sm' onClick={handleSearch}>
           Search
         </MyButton>
       </div>

@@ -1,7 +1,7 @@
 @import './scss/_variables.scss';
 
 .app {
-  background: rgb(9, 44, 48);
+  background: $blackLight;
   /* background: linear-gradient(180deg, rgba(9, 44, 48, 1) 26%, rgba(251, 251, 251, 1) 100%, rgba(255, 255, 255, 1) 100%); */
   min-height: 100vh;
   display: flex;

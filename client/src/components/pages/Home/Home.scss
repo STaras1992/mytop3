@@ -13,8 +13,11 @@
   align-items: center;
 }
 
-.home-button {
+.show-button {
   margin-top: $topMargin;
+  @media screen and (max-width: 300px) {
+    transform: scale(0.8);
+  }
 }
 
 .section-wrapper {
@@ -22,13 +25,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 800px;
+  min-height: 600px;
+  height: 100%;
   width: 100%;
   max-width: $maxWidth;
 }
 
 .home-main-top-section {
-  min-height: 800px;
+  // min-height: 800px;
   width: 100%;
   max-width: $maxInnerWidth;
   display: flex;
@@ -38,6 +42,13 @@
   margin-top: $topMargin;
   h1 {
     color: $whiteDark;
+    text-align: center;
+    @media screen and (max-width: 960px) {
+      font-size: 36px;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -61,31 +72,67 @@
   background-size: cover;
   width: 100%;
   height: 900px;
-  .guru-description {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    margin-left: 100px;
-    margin-bottom: 100px;
-    p {
-      padding-bottom: 30px;
-      font-size: 3.2rem;
-      font-weight: 700;
-      color: $redLight;
+  @media screen and (max-width: 1200px) {
+    max-height: 600px;
+  }
+  @media screen and (max-width: 900px) {
+    height: 400px;
+    background-position: center;
+  }
+}
+
+.guru-description {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 100px;
+  margin-bottom: 100px;
+  p {
+    padding-bottom: 30px;
+    font-size: 3.2rem;
+    font-weight: 700;
+    text-align: left;
+    color: $redLight;
+    @media screen and (max-width: 1200px) {
+      font-size: 2.6rem;
+    }
+    @media screen and (max-width: 900px) {
+      font-size: 2.2rem;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 1.8rem;
+    }
+    @media screen and (max-width: 400px) {
+      font-size: 1.5rem;
+      padding-bottom: 15px;
+      font-weight: 600;
     }
   }
-  .guru-button {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    margin-left: 100px;
-    margin-bottom: 30px;
+
+  @media screen and (max-width: 1200px) {
+    margin-left: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+.guru-button {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 100px;
+  margin-bottom: 30px;
+
+  @media screen and (max-width: 1200px) {
+    margin-left: 1rem;
+  }
+  @media screen and (max-width: 600px) {
+    display: none;
   }
 }
 
 .main-elements {
   width: 100%;
-
   max-width: $maxInnerWidth;
   margin-top: 150px;
   display: flex;
@@ -112,6 +159,35 @@
       height: 300px;
       border-radius: 50%;
       box-shadow: 16px 28px 15px -12px rgba(0, 0, 0, 0.7);
+    }
+  }
+}
+
+.guru-button_mobile {
+  position: relative;
+  margin: 0;
+  margin-top: 50px;
+  justify-content: center;
+  display: none;
+  @media screen and (max-width: 600px) {
+    display: flex;
+  }
+  @media screen and (max-width: 302px) {
+    transform: scale(0.8);
+  }
+}
+
+.guru-description_mobile {
+  position: relative;
+  display: none;
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    p {
+      text-align: center;
+      padding: 10px;
     }
   }
 }

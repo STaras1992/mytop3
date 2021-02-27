@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import soonImage from '../../../images/lg/man_popcorn_lg.jpg';
 import './ComingSoon.scss';
 
 const ComingSoon = () => {
+  const location = useLocation();
+  // Scroll to top if path changes
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <section className='comingSoon'>
       <div className='comingSoon-container'>
